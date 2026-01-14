@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Xenteck Speed Audit</title>
+  <meta name="description" content="Free speed audit for lead-driven businesses. Get a call back fast with a 60-second form." />
+  <meta name="theme-color" content="#1f7a8c" />
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #0d141b;
+      --slate: #1e2a35;
+      --muted: #52606d;
+      --accent: #1f7a8c;
+      --accent-2: #ffb703;
+      --card: #ffffff;
+      --line: #dbe3ec;
+      --shadow: 0 20px 60px rgba(13, 20, 27, 0.12);
+      --bg: linear-gradient(120deg, #f6f2ea, #edf3f6 60%, #f7f7f2);
+      --font-body: "Sora", "Trebuchet MS", "Candara", "Optima", sans-serif;
+      --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(255, 183, 3, 0.25), transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(31, 122, 140, 0.22), transparent 45%),
+        radial-gradient(circle at 80% 90%, rgba(13, 20, 27, 0.08), transparent 40%);
+    }
+
+    body::after {
+      mix-blend-mode: multiply;
+      opacity: 0.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 22px 80px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 0 16px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4.4vw, 58px);
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+
+    .lead {
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--slate);
+      margin: 0 0 22px;
+      max-width: 520px;
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, rgba(255, 183, 3, 0.3), rgba(255, 183, 3, 0));
+      padding: 0 6px;
+      border-radius: 10px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 0;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, #1f7a8c, #2e9c89);
+      box-shadow: 0 12px 26px rgba(31, 122, 140, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(31, 122, 140, 0.45);
+    }
+
+    .cta-call {
+      font-weight: 700;
+      color: var(--slate);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent-2);
+      padding-bottom: 2px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 16px;
+      min-width: 140px;
+      backdrop-filter: blur(6px);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 2px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .form-card {
+      position: relative;
+    }
+
+    .form-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(31, 122, 140, 0.3), rgba(255, 183, 3, 0.2));
+      z-index: -1;
+    }
+
+    .form-head h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+
+    .form-head p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid #cfd8e3;
+      font-size: 15px;
+      font-family: inherit;
+      background: #fbfdff;
+      color: var(--slate);
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(31, 122, 140, 0.15);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .consent {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .consent input {
+      width: auto;
+      margin-top: 2px;
+    }
+
+    .status {
+      font-size: 14px;
+      margin: 8px 0 0;
+    }
+
+    .status.success {
+      color: #0f766e;
+    }
+
+    .status.error {
+      color: #b42318;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 28px 0 0;
+    }
+
+    .benefit {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(6px);
+    }
+
+    .benefit h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .benefit p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .steps {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .step {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px dashed #cbd5e1;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .step span {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.8s ease forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .benefits,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 40px 18px 60px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+
+      .btn {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <p class="kicker" data-reveal style="--delay:0.05s;">Speed Audit</p>
+        <h1 data-reveal style="--delay:0.12s;">Free speed audit that turns <span class="highlight">slow lead response</span> into booked calls.</h1>
+        <p class="lead" data-reveal style="--delay:0.18s;">
+          You are losing leads every minute you wait. We pinpoint the gaps in your inbound flow and
+          call you back with a clear fix plan. The form takes about a minute.
+        </p>
+        <div class="cta-row" data-reveal style="--delay:0.24s;">
+          <a class="btn btn-primary" href="#audit">Start the free audit</a>
+          <a class="cta-call" href="tel:+15551234567">Call or text: (555) 123-4567</a>
+        </div>
+        <p class="muted" data-reveal style="--delay:0.28s;">We follow up fast and only use your info for this audit.</p>
+        <div class="metrics" data-reveal style="--delay:0.34s;">
+          <div class="metric">
+            <strong>60-sec form</strong>
+            Fast to complete
+          </div>
+          <div class="metric">
+            <strong>24-hr reply</strong>
+            Quick callback
+          </div>
+          <div class="metric">
+            <strong>Lead-ready</strong>
+            Built for revenue teams
+          </div>
+        </div>
+      </div>
+
+      <div class="card form-card" id="audit" data-reveal style="--delay:0.25s;">
+        <div class="form-head">
+          <h2>Get your free audit</h2>
+          <p>Send the essentials. We will call you with the results and next steps.</p>
+        </div>
+
+        <form id="audit-form" action="YOUR_MAKE_WEBHOOK_URL" data-webhook="YOUR_MAKE_WEBHOOK_URL" method="post">
+          <input type="hidden" name="audit_type" value="SPEED" />
+          <input type="hidden" name="source" value="xenteckspeed.com" />
+
+          <div class="grid-2">
+            <div>
+              <label for="name">Your name</label>
+              <input id="name" name="name" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="company">Company</label>
+              <input id="company" name="company" autocomplete="organization" required />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div>
+              <label for="phone">Best phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+            </div>
+          </div>
+
+          <div>
+            <label for="website">Website (optional)</label>
+            <input id="website" name="website" type="url" autocomplete="url" placeholder="https://example.com" />
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <label for="leads">Leads per week</label>
+              <select id="leads" name="leads_per_week" required>
+                <option value="" selected disabled>Select</option>
+                <option>1-10</option>
+                <option>11-25</option>
+                <option>26-50</option>
+                <option>51-100</option>
+                <option>100+</option>
+              </select>
+            </div>
+            <div>
+              <label for="response">Current response time</label>
+              <select id="response" name="response_time" required>
+                <option value="" selected disabled>Select</option>
+                <option>Under 5 minutes</option>
+                <option>5-15 minutes</option>
+                <option>15-60 minutes</option>
+                <option>1-4 hours</option>
+                <option>Same day</option>
+                <option>Next day or later</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" name="contact_consent" value="YES" required />
+            I agree to receive follow-up calls or texts about this audit. Reply STOP to opt out.
+          </label>
+
+          <button class="btn btn-primary" type="submit">Send my audit request</button>
+          <p id="form-status" class="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="benefits" data-reveal style="--delay:0.3s;">
+      <div class="benefit">
+        <h3>Instant clarity</h3>
+        <p>See where speed breaks down across lead capture, routing, and follow-up.</p>
+      </div>
+      <div class="benefit">
+        <h3>Speed playbook</h3>
+        <p>Get a tight action list for faster replies and higher booking rates.</p>
+      </div>
+      <div class="benefit">
+        <h3>Callback focused</h3>
+        <p>We call you with findings so you can move quickly.</p>
+      </div>
+    </section>
+
+    <section class="steps" data-reveal style="--delay:0.34s;">
+      <div class="step">
+        <span>1. Send the form</span>
+        Your details go straight to our audit queue in Make.com.
+      </div>
+      <div class="step">
+        <span>2. We review fast</span>
+        We map your lead flow and find the response gaps.
+      </div>
+      <div class="step">
+        <span>3. We call you</span>
+        You get a direct call with the action plan.
+      </div>
+    </section>
+
+    <p class="footer">
+      Prefer email? Reach us at hello@example.com. Response times depend on lead volume and availability.
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById("audit-form");
+      var status = document.getElementById("form-status");
+      var submit = form.querySelector("button[type='submit']");
+      var webhook = form.getAttribute("data-webhook");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (!webhook || webhook.indexOf("YOUR_MAKE_WEBHOOK_URL") !== -1) {
+          status.textContent = "Webhook not configured. Update data-webhook in index.html.";
+          status.className = "status error";
+          return;
+        }
+
+        submit.disabled = true;
+        submit.textContent = "Sending...";
+        status.textContent = "Submitting...";
+        status.className = "status";
+
+        var payload = Object.fromEntries(new FormData(form).entries());
+        payload.submitted_at = new Date().toISOString();
+        payload.page_url = window.location.href;
+        payload.user_agent = navigator.userAgent;
+
+        fetch(webhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error("Request failed");
+            }
+            status.textContent = "Thanks. We will call you shortly.";
+            status.className = "status success";
+            form.reset();
+          })
+          .catch(function () {
+            status.textContent = "Something went wrong. Please call or try again.";
+            status.className = "status error";
+          })
+          .finally(function () {
+            submit.disabled = false;
+            submit.textContent = "Send my audit request";
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
