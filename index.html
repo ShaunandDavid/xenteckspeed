@@ -383,18 +383,18 @@
           call you back with a clear fix plan. The form takes about a minute.
         </p>
         <div class="cta-row" data-reveal style="--delay:0.24s;">
-          <a class="btn btn-primary" href="#audit">Start the free audit</a>
+          <a class="btn btn-primary" href="#audit">Get my callback</a>
           <a class="cta-call" href="tel:+15551234567">Call or text: (555) 123-4567</a>
         </div>
-        <p class="muted" data-reveal style="--delay:0.28s;">We follow up fast and only use your info for this audit.</p>
+        <p class="muted" data-reveal style="--delay:0.28s;">We call back fast and only use your info for this audit.</p>
         <div class="metrics" data-reveal style="--delay:0.34s;">
           <div class="metric">
             <strong>60-sec form</strong>
             Fast to complete
           </div>
           <div class="metric">
-            <strong>24-hr reply</strong>
-            Quick callback
+            <strong>24-hr callback</strong>
+            Fast follow up
           </div>
           <div class="metric">
             <strong>Lead-ready</strong>
@@ -406,7 +406,7 @@
       <div class="card form-card" id="audit" data-reveal style="--delay:0.25s;">
         <div class="form-head">
           <h2>Get your free audit</h2>
-          <p>Send the essentials. We will call you with the results and next steps.</p>
+          <p>Send the essentials. We will call you back within 24 hours with the results.</p>
         </div>
 
         <form id="audit-form" action="YOUR_MAKE_WEBHOOK_URL" data-webhook="YOUR_MAKE_WEBHOOK_URL" method="post">
@@ -471,7 +471,7 @@
             I agree to receive follow-up calls or texts about this audit. Reply STOP to opt out.
           </label>
 
-          <button class="btn btn-primary" type="submit">Send my audit request</button>
+          <button class="btn btn-primary" type="submit">Request my callback</button>
           <p id="form-status" class="status" aria-live="polite"></p>
         </form>
       </div>
@@ -488,7 +488,7 @@
       </div>
       <div class="benefit">
         <h3>Callback focused</h3>
-        <p>We call you with findings so you can move quickly.</p>
+        <p>We call you back with findings so you can move quickly.</p>
       </div>
     </section>
 
@@ -547,7 +547,7 @@
             if (!response.ok) {
               throw new Error("Request failed");
             }
-            status.textContent = "Thanks. We will call you shortly.";
+            status.textContent = "Thanks. We will call you back shortly.";
             status.className = "status success";
             form.reset();
           })
@@ -557,7 +557,7 @@
           })
           .finally(function () {
             submit.disabled = false;
-            submit.textContent = "Send my audit request";
+            submit.textContent = "Request my callback";
           });
       });
     })();
