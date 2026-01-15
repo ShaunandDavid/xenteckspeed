@@ -1,6 +1,6 @@
-# Xenteck Speed Audit
+# Xenteck Business Bottleneck Audit
 
-Static hero page with a fast audit form that posts to a Make.com webhook.
+Static hero page for the Business Bottleneck Audit with a Make.com webhook form.
 
 ## Quick setup
 
