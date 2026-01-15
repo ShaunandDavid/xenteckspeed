@@ -239,19 +239,6 @@
       gap: 12px;
     }
 
-    .consent {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .consent input {
-      width: auto;
-      margin-top: 2px;
-    }
-
     .status {
       font-size: 14px;
       margin: 8px 0 0;
@@ -263,6 +250,10 @@
 
     .status.error {
       color: #b42318;
+    }
+
+    .is-hidden {
+      display: none;
     }
 
     .benefits {
@@ -455,19 +446,19 @@
               <option>No visibility into leads/customers</option>
               <option>After-hours gaps</option>
               <option>Systems feel messy / disconnected</option>
-              <option>Not sure</option>
+              <option value="Other">Other (please specify)</option>
             </select>
+          </div>
+
+          <div id="bottleneck-other-field" class="is-hidden">
+            <label for="bottleneck-other">Other bottleneck (please specify)</label>
+            <textarea id="bottleneck-other" name="bottleneck_other" placeholder="Share what feels off in your process."></textarea>
           </div>
 
           <div>
             <label for="one-thing">If you could fix ONE thing right now, what would it be?</label>
             <textarea id="one-thing" name="one_thing_fix" placeholder="Tell us what feels most stuck." required></textarea>
           </div>
-
-          <label class="consent">
-            <input type="checkbox" name="contact_consent" value="YES" required />
-            I agree to receive follow-up calls or texts about this audit. Reply STOP to opt out.
-          </label>
 
           <button class="btn btn-primary" type="submit">Request my callback</button>
           <p id="form-status" class="status" aria-live="polite"></p>
@@ -516,6 +507,22 @@
       var status = document.getElementById("form-status");
       var submit = form.querySelector("button[type='submit']");
       var webhook = form.getAttribute("data-webhook");
+      var bottleneck = document.getElementById("bottleneck");
+      var bottleneckOtherField = document.getElementById("bottleneck-other-field");
+      var bottleneckOther = document.getElementById("bottleneck-other");
+
+      function toggleBottleneckOther() {
+        var isOther = bottleneck.value === "Other";
+        bottleneckOtherField.classList.toggle("is-hidden", !isOther);
+        bottleneckOther.required = isOther;
+        bottleneckOther.disabled = !isOther;
+        if (!isOther) {
+          bottleneckOther.value = "";
+        }
+      }
+
+      bottleneck.addEventListener("change", toggleBottleneckOther);
+      toggleBottleneckOther();
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -548,6 +555,7 @@
             status.textContent = "Thanks. We will call you back shortly.";
             status.className = "status success";
             form.reset();
+            toggleBottleneckOther();
           })
           .catch(function () {
             status.textContent = "Something went wrong. Please call or try again.";
